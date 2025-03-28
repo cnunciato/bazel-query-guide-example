@@ -37,3 +37,10 @@ steps:
       - bazel query "deps(//services/...)" --output minrank | sort -rn | head -10
       - bazel query "rdeps(//..., //lib/legacy:some_old_util)"
       - bazel query "filter('@', deps(//services/...))"
+
+  - label: ":buildkite: Generate a BEP file and annotation"
+    command: |
+      bazel build //... --build_event_json_file=bazel-events.json
+    plugins:
+      - bazel-annotate#v0.1.0:
+          bep_file: bazel-events.json
