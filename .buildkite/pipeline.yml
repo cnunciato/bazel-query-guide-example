@@ -1,0 +1,16 @@
+steps:
+  - label: ":bazel: Run all the things!"
+    commands:
+      - bazel build //...
+      - bazel test //...
+      - bazel query //...
+      - bazel query "kind('go_binary', //...)"
+      - bazel query "deps(//services/payment:payment)"
+      - bazel query "deps(//services/payment:payment, 1)"
+      - bazel query "rdeps(//..., //lib/logging:logging)"
+      - bazel query "kind('go_binary', rdeps(//..., //lib/logging:logging))"
+      - bazel query "somepath(//services/payment:payment, @com_github_lib_pq//:go_default_library)"
+      - bazel query "kind('go_test', rdeps(//..., //lib/metrics:metrics))"
+      - bazel query "kind('go_binary', rdeps(//..., //lib/logging:logging)) intersect kind('go_binary', rdeps(//..., //lib/config:config))"
+      - bazel cquery "deps(//services/payment:payment)" --define environment=production
+      - bazel aquery "//services/payment:payment"
