@@ -35,7 +35,6 @@ steps:
       - bazel cquery "somepath(//services/payment:payment, //lib/tracing:datadog)" --define environment=production
       - bazel aquery "//services/payment:payment"
       - bazel query "deps(//services/...)" --output minrank | sort -rn | head -10
-      - bazel query "rdeps(//..., //lib/legacy:some_old_util)"
       - bazel query "filter('@', deps(//services/...))"
 
   - label: ":buildkite: Generate a BEP file and annotation"
