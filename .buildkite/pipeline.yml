@@ -1,6 +1,8 @@
 steps:
   - label: ":bazel: Run all the things!"
     commands:
+
+      # From the README.
       - bazel build //...
       - bazel test //...
       - bazel query //...
@@ -14,3 +16,24 @@ steps:
       - bazel query "kind('go_binary', rdeps(//..., //lib/logging:logging)) intersect kind('go_binary', rdeps(//..., //lib/config:config))"
       - bazel cquery "deps(//services/payment:payment)" --define environment=production
       - bazel aquery "//services/payment:payment"
+
+      # From the blog post.
+      - bazel query //...
+      - bazel query "kind('go_binary', //services/...)"
+      - bazel query "deps(//services/payment:payment)"
+      - bazel query "deps(//services/payment:payment, 1)"
+      - bazel query "deps(//services/payment:payment, 2)"
+      - bazel query "rdeps(//..., //lib/logging:logging)"
+      - bazel query "kind('go_binary', rdeps(//..., //lib/logging:logging))"
+      - bazel query "somepath(//services/payment:payment, @com_github_lib_pq//:pq)"                
+      - bazel query "allpaths(//services/payment:payment, @com_github_lib_pq//:pq)"
+      - bazel query 'deps(//services/payment/..., 2) ' --output graph --noimplicit_deps  | dot -Tpng -o graph.png
+      - bazel query "kind('go_test', //...)"
+      - bazel test $(bazel query "kind('go_test', //services/payment/...)")
+      - bazel query "kind('go_test', rdeps(//..., //lib/metrics:metrics))"
+      - bazel query "kind('go_binary', rdeps(//..., //lib/logging:logging)) intersect kind('go_binary', rdeps(//..., //lib/config:config))"
+      - bazel cquery "somepath(//services/payment:payment, //lib/tracing:datadog)" --define environment=production
+      - bazel aquery "//services/payment:payment"
+      - bazel query "deps(//services/...)" --output minrank | sort -rn | head -10
+      - bazel query "rdeps(//..., //lib/legacy:some_old_util)"
+      - bazel query "filter('@', deps(//services/...))"
