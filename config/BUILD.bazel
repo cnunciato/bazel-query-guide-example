@@ -1,0 +1,16 @@
+package(default_visibility = ["//visibility:public"])
+
+# Configuration flags for select() statements
+config_setting(
+    name = "production",
+    values = {
+        "define": "environment=production",
+    },
+)
+
+config_setting(
+    name = "development",
+    values = {
+        "define": "environment=development",
+    },
+)

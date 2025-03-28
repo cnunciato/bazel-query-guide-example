@@ -1,0 +1,14 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "config",
+    srcs = ["reader.go"],
+    importpath = "bazel_query_example/lib/config",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "config_test",
+    srcs = ["reader_test.go"],
+    embed = [":config"],
+)

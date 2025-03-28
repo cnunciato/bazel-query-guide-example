@@ -1,0 +1,40 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+go_library(
+    name = "payment_lib",
+    srcs = [
+        "service.go",
+        "handlers.go",
+        "postgres.go",
+    ],
+    importpath = "bazel_query_example/services/payment",
+    visibility = ["//visibility:private"],
+    deps = [
+        # "//lib/config:config",
+        "//lib/logging:logging",
+        "//lib/metrics:metrics",
+        "//services/payment/db:db",
+        "@com_github_lib_pq//:go_default_library",
+    ]
+    # # Make dependencies selectable/configurable. 
+    # ] + select({
+    #     "//config:production": ["//lib/tracing:datadog"],
+    #     "//config:development": ["//lib/tracing:jaeger"],
+    #     "//conditions:default": [],
+    # }),
+)
+
+go_binary(
+    name = "payment",
+    embed = [":payment_lib"],
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "payment_test",
+    srcs = ["payment_test.go"],
+    embed = [":payment_lib"],
+    deps = [
+        "//lib/metrics:metrics",
+    ],
+)

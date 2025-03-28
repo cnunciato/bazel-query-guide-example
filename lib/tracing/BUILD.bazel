@@ -1,0 +1,15 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "datadog",
+    srcs = ["datadog.go"],
+    importpath = "bazel_query_example/lib/tracing/datadog",
+    visibility = ["//visibility:public"],
+)
+
+go_library(
+    name = "jaeger",
+    srcs = ["jaeger.go"],
+    importpath = "bazel_query_example/lib/tracing/jaeger",
+    visibility = ["//visibility:public"],
+)

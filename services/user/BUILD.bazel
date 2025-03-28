@@ -1,0 +1,32 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+go_library(
+    name = "user_lib",
+    srcs = [
+        "handlers.go",
+        "service.go",
+    ],
+    importpath = "bazel_query_example/services/user",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//lib/config",
+        "//lib/logging",
+        "//lib/metrics",
+    ],
+)
+
+go_binary(
+    name = "user",
+    embed = [":user_lib"],
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "user_test",
+    srcs = ["uesr_test.go"],
+    embed = [":user_lib"],
+    deps = [
+        "//lib/logging",
+        "//lib/metrics",
+    ],
+)

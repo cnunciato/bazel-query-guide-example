@@ -1,0 +1,14 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "logging",
+    srcs = ["logger.go"],
+    importpath = "bazel_query_example/lib/logging",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "logging_test",
+    srcs = ["logger_test.go"],
+    embed = [":logging"],
+)

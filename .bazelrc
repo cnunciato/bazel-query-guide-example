@@ -1,0 +1,6 @@
+# Enable Bzlmod
+common --enable_bzlmod
+
+# Define configuration flags
+build:production --define=environment=production
+build:development --define=environment=development
