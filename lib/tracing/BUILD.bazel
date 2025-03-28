@@ -13,3 +13,13 @@ go_library(
     importpath = "bazel_query_example/lib/tracing/jaeger",
     visibility = ["//visibility:public"],
 )
+
+go_library(
+    name = "tracing",
+    srcs = [
+        "datadog.go",
+        "jaeger.go",
+    ],
+    importpath = "bazel_query_example/lib/tracing",
+    visibility = ["//visibility:public"],
+)

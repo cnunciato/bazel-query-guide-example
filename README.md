@@ -1,5 +1,7 @@
 # bazel-query-guide-example
 
+[![Build status](https://badge.buildkite.com/c3d0985869f2487bf85ba2ea03acbca0a41e06de59c40d31cb.svg)](https://buildkite.com/nunciato/bazel-query-guide-example)
+
 This repository contains a hypothetical Go microservices project structured to demonstrate Bazel's query capabilities. It's meant to serve as a companion to the Buildkite blog post [A Guide to Bazel Query](https://buildkite.com/blog/a-guide-to-bazel-query).
 
 ## Overview
